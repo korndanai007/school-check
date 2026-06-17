@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ระบบเช็คชื่อนักเรียนรายวัน - Student Attendance</title>
+  <!-- Google Fonts: Kanit (Thai) & Inter (English) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Kanit:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- App Wrapper -->
+  <div class="app-container">
+    
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+      <button id="mobile-menu-toggle" aria-label="Toggle Menu" class="btn-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
+      <div class="mobile-title">เช็คชื่อนักเรียน</div>
+      <button id="theme-toggle-mobile" aria-label="Toggle Theme" class="btn-icon">
+        <!-- Sun/Moon Icon will be injected via JS -->
+      </button>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="brand-text">
+            <h1>ระบบเช็คชื่อ</h1>
+            <span>ครูประจำชั้น</span>
+          </div>
+        </div>
+        <button id="mobile-menu-close" aria-label="Close Menu" class="btn-icon mobile-only">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="#checker" class="nav-item active" data-view="checker">
+          <span class="nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </span>
+          <span class="nav-label">เช็คชื่อนักเรียน</span>
+        </a>
+        <a href="#daily" class="nav-item" data-view="daily">
+          <span class="nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M17 14h-6v6"/></svg>
+          </span>
+          <span class="nav-label">รายงานรายวัน</span>
+        </a>
+        <a href="#manage" class="nav-item" data-view="manage">
+          <span class="nav-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <span class="nav-label">จัดการข้อมูล</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="theme-toggle" class="btn-theme-toggle">
+          <span class="theme-icon">
+            <!-- Injected by JS -->
+          </span>
+          <span class="theme-label">โหมดมืด</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      <div id="app-content" class="content-container">
+        <!-- Views will be dynamically loaded here -->
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>กำลังโหลดแอปพลิเคชัน...</p>
+        </div>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- App Logic (CORS-safe ordered scripts for offline execution) -->
+  <script src="js/db.js"></script>
+  <script src="js/views/checker.js"></script>
+  <script src="js/views/daily.js"></script>
+  <script src="js/views/manage.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
